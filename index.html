@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shooter Aroussi | شوتر العروسي - لعبة باتل رويال الحماسية مثل فري فاير وببجي</title>
+  <meta name="description"
+    content="حمّل لعبة شوتر العروسي (Shooter Aroussi) الآن مجاناً للأندرويد APK والكمبيوتر PC. أقوى تجربة باتل رويال حماسية وقتال بقاء مستوحاة من فري فاير وببجي مع أسلحة واقعية ورسوميات خارقة.">
+  <meta name="keywords"
+    content="shooter aroussi, شوتر العروسي, تحميل لعبة ببجي, تحميل لعبة فري فاير, باتل رويال للكمبيوتر, باتل رويال للاندرويد, apk, pc game, battle royale">
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+
+  <!-- Google Fonts: Cairo & Tajawal for Arabic, Orbitron & Rajdhani for English/Gaming -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@600;700&family=Tajawal:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Ambient Canvas for Battlefield Particles & Embers -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="container top-bar-content">
+      <div class="announcement-badge">
+        <span class="live-dot"></span>
+        <span data-i18n="top_season">الموسم الأول: فجر البقاء (SURVIVOR'S DAWN) متاح الآن!</span>
+      </div>
+      <div class="server-status">
+        <i class="fa-solid fa-server"></i>
+        <span data-i18n="server_status">السيرفرات تعمل بكفاءة عالية 100% | بنغ منخفض</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="main-header" id="header">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" id="brand-logo">
+        <div class="logo-icon-wrap">
+          <i class="fa-solid fa-crosshairs target-icon"></i>
+          <i class="fa-solid fa-fire flame-icon"></i>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SHOOTER <span class="highlight">AROUSSI</span></span>
+          <span class="logo-sub">شوتر العروسي • BATTLE ROYALE</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#hero" class="nav-link active" data-i18n="nav_home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+        <a href="#features" class="nav-link" data-i18n="nav_features"><i class="fa-solid fa-shield-halved"></i>
+          المميزات</a>
+        <a href="#weapons" class="nav-link" data-i18n="nav_weapons"><i class="fa-solid fa-gun"></i> الأسلحة</a>
+        <a href="#maps" class="nav-link" data-i18n="nav_maps"><i class="fa-solid fa-map-location-dot"></i> الخرائط</a>
+        <a href="#download" class="nav-link" data-i18n="nav_download"><i class="fa-solid fa-download"></i> التحميل</a>
+        <a href="#requirements" class="nav-link" data-i18n="nav_specs"><i class="fa-solid fa-microchip"></i> متطلبات
+          التشغيل</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="nav-actions">
+        <!-- Audio Synth Toggle -->
+        <button class="action-btn audio-toggle-btn" id="audio-toggle" title="مؤثرات صوتية تكتيكية"
+          aria-label="Toggle Tactical Audio">
+          <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+        </button>
+
+        <!-- Language Switcher -->
+        <button class="action-btn lang-btn" id="lang-toggle" title="تغيير اللغة" aria-label="Switch Language">
+          <i class="fa-solid fa-globe"></i>
+          <span id="lang-label">EN</span>
+        </button>
+
+        <!-- Header CTA Button -->
+        <a href="#download" class="btn btn-primary btn-glow nav-cta-btn" id="nav-download-cta">
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+          <span data-i18n="cta_download">تحميل اللعبة</span>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-backdrop" style="background-image: url('aro.jpg');"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-badge-tag">
+        <span class="pulse-icon">🔥</span>
+        <span data-i18n="hero_tag">أقوى تجربة باتل رويال مستوحاة من فري فاير وببجي</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-sub" data-i18n="hero_sub_badge">معركة البقاء الأخيرة</span>
+        <span class="title-main">شوتر <span class="text-gradient">العروسي</span></span>
+        <span class="title-en">SHOOTER AROUSSI: BATTLE ROYALE</span>
+      </h1>
+
+      <p class="hero-desc" data-i18n="hero_desc">
+        اهبط بالمظلة في قلب الجزيرة المحروقة، اجمع أفتك الأسلحة والمعدات التكتيكية، قُد المركبات القتالية، وتغلب على 99
+        مقاتلاً لتكون الناجي الأخير! تجربة لعب أصيلة وواقعية بالكامل للكمبيوتر والهاتف.
+      </p>
+
+      <!-- Prominent Main Cover Art Showcase (غلاف اللعبة الرئيسي الواضح) -->
+      <div class="hero-cover-wrapper" id="hero-cover-showcase">
+        <div class="cover-card-glow">
+          <div class="cover-badge-top">
+            <span class="badge-icon"><i class="fa-solid fa-crown"></i></span>
+            <span class="badge-title">الغلاف الرسمي للعبة • OFFICIAL COVER 2026-2027</span>
+            <span class="badge-live"><i class="fa-solid fa-circle"></i> مباشر</span>
+          </div>
+          
+          <div class="cover-img-frame">
+            <img src="aro.jpg" alt="غلاف لعبة شوتر العروسي الرسمي - Shooter Aroussi Official Cover" class="main-cover-image" id="main-cover-img" loading="eager">
+            <div class="cover-overlay-gradient">
+              <div class="cover-quick-actions">
+                <a href="#download-android" class="cover-action-pill android-pill">
+                  <i class="fa-brands fa-android"></i> أندرويد APK (222 MB)
+                </a>
+                <a href="#download-pc" class="cover-action-pill pc-pill">
+                  <i class="fa-brands fa-windows"></i> كمبيوتر PC (245 MB)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="cover-footer-bar">
+            <div class="cover-status-item">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>نسخة أصلية آمنة 100%</span>
+            </div>
+            <div class="cover-status-item">
+              <i class="fa-solid fa-gamepad"></i>
+              <span>كمبيوتر بدون محاكي + هواتف أندرويد</span>
+            </div>
+            <div class="cover-status-item">
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+              <span>روابط تحميل مباشرة وسريعة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Download Cards / Fast CTA -->
+      <div class="hero-download-grid">
+        <!-- Android Quick Card -->
+        <a href="#download-android" class="hero-dl-card android-card" id="hero-btn-android">
+          <div class="card-icon">
+            <i class="fa-brands fa-android"></i>
+          </div>
+          <div class="card-info">
+            <div class="platform-label" data-i18n="card_android_sub">نسخة الأندرويد الرسمية</div>
+            <div class="platform-name">تحميل للأندرويد APK</div>
+            <div class="platform-meta">
+              <span><i class="fa-solid fa-box-archive"></i> 222 MB</span>
+              <span><i class="fa-solid fa-code-branch"></i> v1.0.0</span>
+              <span><i class="fa-solid fa-mobile-screen-button"></i> Android 7+</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+        </a>
+
+        <!-- PC Quick Card -->
+        <a href="#download-pc" class="hero-dl-card pc-card" id="hero-btn-pc">
+          <div class="card-icon">
+            <i class="fa-brands fa-windows"></i>
+          </div>
+          <div class="card-info">
+            <div class="platform-label" data-i18n="card_pc_sub">نسخة الكمبيوتر بدون محاكي</div>
+            <div class="platform-name">تحميل للكمبيوتر PC</div>
+            <div class="platform-meta">
+              <span><i class="fa-solid fa-file-zipper"></i> 245 MB</span>
+              <span><i class="fa-solid fa-bolt"></i> 60-144 FPS</span>
+              <span><i class="fa-solid fa-desktop"></i> Win 10/11</span>
+            </div>
+          </div>
+          <div class="card-action">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Live Counters -->
+      <div class="hero-stats-bar">
+        <div class="stat-item">
+          <div class="stat-number"><span class="counter" data-target="100">100</span></div>
+          <div class="stat-text" data-i18n="stat_players">مقاتل في كل جولة</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number"><span class="counter" data-target="60">60</span>+ <span class="stat-unit">FPS</span>
+          </div>
+          <div class="stat-text" data-i18n="stat_fps">أداء سلس بدون لاق</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number"><span class="counter" data-target="45">45</span>+</div>
+          <div class="stat-text" data-i18n="stat_weapons">سلاح ومركبة قتالية</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number"><span class="counter" data-target="100">100</span>%</div>
+          <div class="stat-text" data-i18n="stat_free">مجانية بالكامل للجميع</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <a href="#features" class="scroll-down-indicator" aria-label="Scroll Down">
+      <span data-i18n="scroll_more">استكشف المعركة</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </a>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section features-section" id="features">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="features_tag">مميزات أسطورية</div>
+        <h2 class="section-title" data-i18n="features_title">لماذا تختار <span class="text-gradient">شوتر
+            العروسي</span>؟</h2>
+        <p class="section-desc" data-i18n="features_desc">
+          دمجنا بين سرعة وحماس مواجهات فري فاير مع فيزياء وتكتيكات ببجي موبايل لنقدم لك أفضل تجربة باتل رويال متكاملة.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon-box orange">
+            <i class="fa-solid fa-jet-fighter"></i>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_1_title">نزول تكتيكي و100 لاعب</h3>
+          <p class="feature-text" data-i18n="feat_1_text">
+            اهبط في أي نقطة تختارها على الجزيرة، سارع بالبحث عن عتادك، تجنب منطقة الخطر (Red Zone)، وحافظ على موقعك داخل
+            دائرة الأمان الزاحفة.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon-box gold">
+            <i class="fa-solid fa-crosshairs"></i>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_2_title">فيزياء أسلحة بالستية واقعية</h3>
+          <p class="feature-text" data-i18n="feat_2_text">
+            حساب دقيق لسرعة الرصاص والجاذبية والارتداد، مع دعم كامل للسكوبات المتنوعة (2x, 4x, 8x) وكواتم الصوت ومخازن
+            الذخيرة الموسعة.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-box cyan">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_3_title">نسخة كمبيوتر أصلية بدون محاكي</h3>
+          <p class="feature-text" data-i18n="feat_3_text">
+            وداعاً لمشاكل المحاكيات الثقيلة! تم تطوير نسخة الـ PC خصيصاً بنظام Native مع تحكم ماوس ولوحة مفاتيح سلس
+            وسريع الاستجابة.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-box red">
+            <i class="fa-solid fa-car-burst"></i>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_4_title">مركبات قتالية ومطاردات شرسة</h3>
+          <p class="feature-text" data-i18n="feat_4_text">
+            قُد الجيب العسكري والباجي والدراجات النارية للتحرك السريع وقطع المسافات ومباغتة الخصوم أو دهسهم في المعارك
+            المفتوحة.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon-box green">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_5_title">تحسين خارق للأجهزة الضعيفة</h3>
+          <p class="feature-text" data-i18n="feat_5_text">
+            محرك اللعبة تم تصميمه ليعمل بسلاسة 60 إطار في الثانية حتى على الهواتف وأجهزة الكمبيوتر الاقتصادية مع الحفاظ
+            على وضوح الرسوم.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon-box purple">
+            <i class="fa-solid fa-box-open"></i>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_6_title">إنزال جوي مميز (Airdrop Crates)</h3>
+          <p class="feature-text" data-i18n="feat_6_text">
+            ترقب دخان الإنزال الجوي الأحمر للحصول على أندر الأسلحة والخوذات والمدرعات من المستوى الثالث، لكن احذر من
+            كمائن القناصة!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Action Visual Banner Section -->
+  <section class="visual-break-section">
+    <div class="visual-backdrop" style="background-image: url('assets/combat-action.jpg');"></div>
+    <div class="visual-overlay"></div>
+    <div class="container visual-content">
+      <div class="visual-tag" data-i18n="action_tag">القتال لا يتوقف</div>
+      <h2 class="visual-title" data-i18n="action_title">هل تمتلك الشجاعة لتكون الناجي الأخير؟</h2>
+      <p class="visual-text" data-i18n="action_desc">
+        انضم لآلاف اللاعبين الذين يتنافسون يومياً على نيل لقب "بطل الجزيرة". جهز أسلحتك وابدأ معركتك الآن مجاناً!
+      </p>
+      <div class="visual-actions">
+        <a href="#download" class="btn btn-primary btn-lg btn-glow">
+          <i class="fa-solid fa-crosshairs"></i>
+          <span data-i18n="btn_enter_battle">ادخل ساحة المعركة الآن</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weapons Showcase Section -->
+  <section class="section weapons-section" id="weapons">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="weapons_tag">ترسانة المعركة</div>
+        <h2 class="section-title" data-i18n="weapons_title">الأسلحة والعتاد <span class="text-gradient">التكتيكي</span>
+        </h2>
+        <p class="section-desc" data-i18n="weapons_desc">
+          اختر سلاحك المفضل حسب أسلوب لعبك؛ سواء كنت تفضل الاشتباكات القريبة السريعة أو القنص الدقيق من مسافات بعيدة.
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="tabs-nav" id="weapon-tabs">
+        <button class="tab-btn active" data-category="ar" data-i18n="tab_ar">بنادق هجومية (AR)</button>
+        <button class="tab-btn" data-category="sniper" data-i18n="tab_sniper">قناصات (Sniper)</button>
+        <button class="tab-btn" data-category="smg" data-i18n="tab_smg">رشاشات خفيفة (SMG)</button>
+        <button class="tab-btn" data-category="crate" data-i18n="tab_crate">أسلحة الإنزال (Crate)</button>
+      </div>
+
+      <!-- Weapons Showcase Grid -->
+      <div class="weapons-grid" id="weapons-grid">
+        <!-- Weapon 1 (AR) -->
+        <div class="weapon-card" data-category="ar">
+          <div class="weapon-badge">AR 5.56mm</div>
+          <div class="weapon-icon"><i class="fa-solid fa-person-rifle"></i></div>
+          <h4 class="weapon-name">M4A1 TACTICAL</h4>
+          <p class="weapon-type" data-i18n="wpn_m4_type">بندقية هجومية متوازنة وثابتة</p>
+          <div class="weapon-stats">
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الضرر (Damage)</span><span>82%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 82%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>سرعة الإطلاق (Fire Rate)</span><span>88%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 88%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الثبات والتحكم (Stability)</span><span>92%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 92%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weapon 2 (AR) -->
+        <div class="weapon-card" data-category="ar">
+          <div class="weapon-badge">AR 7.62mm</div>
+          <div class="weapon-icon"><i class="fa-solid fa-gun"></i></div>
+          <h4 class="weapon-name">AKM BEAST</h4>
+          <p class="weapon-type" data-i18n="wpn_ak_type">ضرر هائل واختراق دروع شديد</p>
+          <div class="weapon-stats">
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الضرر (Damage)</span><span>95%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 95%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>سرعة الإطلاق (Fire Rate)</span><span>75%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الثبات والتحكم (Stability)</span><span>68%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 68%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weapon 3 (Sniper) -->
+        <div class="weapon-card" data-category="sniper">
+          <div class="weapon-badge">.300 Magnum</div>
+          <div class="weapon-icon"><i class="fa-solid fa-crosshairs"></i></div>
+          <h4 class="weapon-name">AWM SUPREME</h4>
+          <p class="weapon-type" data-i18n="wpn_awm_type">قناصة الإنزال الجوي المميتة برصاصة واحدة</p>
+          <div class="weapon-stats">
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الضرر (Damage)</span><span>100%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>المدى الفعال (Range)</span><span>98%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 98%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>سرعة الإطلاق (Fire Rate)</span><span>25%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weapon 4 (SMG) -->
+        <div class="weapon-card" data-category="smg">
+          <div class="weapon-badge">SMG .45 ACP</div>
+          <div class="weapon-icon"><i class="fa-solid fa-burst"></i></div>
+          <h4 class="weapon-name">VECTOR BLITZ</h4>
+          <p class="weapon-type" data-i18n="wpn_vector_type">أسرع رشاش للاشتباكات المباشرة</p>
+          <div class="weapon-stats">
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الضرر (Damage)</span><span>68%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 68%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>سرعة الإطلاق (Fire Rate)</span><span>100%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الثبات والتحكم (Stability)</span><span>85%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 85%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weapon 5 (Crate) -->
+        <div class="weapon-card" data-category="crate">
+          <div class="weapon-badge">AIRDROP 7.62mm</div>
+          <div class="weapon-icon"><i class="fa-solid fa-shield-virus"></i></div>
+          <h4 class="weapon-name">GROZA OMNI</h4>
+          <p class="weapon-type" data-i18n="wpn_groza_type">أقوى بندقية إنزال جوي سريعة الإطلاق</p>
+          <div class="weapon-stats">
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الضرر (Damage)</span><span>92%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 92%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>سرعة الإطلاق (Fire Rate)</span><span>90%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>المدى الفعال (Range)</span><span>80%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weapon 6 (Sniper) -->
+        <div class="weapon-card" data-category="sniper">
+          <div class="weapon-badge">SNIPER 7.62mm</div>
+          <div class="weapon-icon"><i class="fa-solid fa-crosshairs"></i></div>
+          <h4 class="weapon-name">KAR98K CLASSIC</h4>
+          <p class="weapon-type" data-i18n="wpn_kar_type">القناصة الكلاسيكية المحبوبة المنتشرة بالخريطة</p>
+          <div class="weapon-stats">
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>الضرر (Damage)</span><span>88%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 88%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>المدى الفعال (Range)</span><span>90%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>سرعة الإطلاق (Fire Rate)</span><span>28%</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 28%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Maps & Battlefield Arena Section -->
+  <section class="section maps-section" id="maps">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="maps_tag">ساحات القتال</div>
+        <h2 class="section-title" data-i18n="maps_title">خرائط متنوعة <span class="text-gradient">وتكتيكات لا حصر
+            لها</span></h2>
+        <p class="section-desc" data-i18n="maps_desc">
+          بيئات قتالية مختلفة تتطلب استراتيجيات مدروسة؛ من الصحراء القاحلة إلى القواعد العسكرية والمدن الحضرية.
+        </p>
+      </div>
+
+      <div class="maps-grid">
+        <!-- Map 1 -->
+        <div class="map-card">
+          <div class="map-img-box">
+            <img src="assets/combat-action.jpg" alt="خريطة الجزيرة المحروقة" loading="lazy">
+            <div class="map-tag">8x8 KM • جزيرة رئيسية</div>
+          </div>
+          <div class="map-details">
+            <h3 class="map-name" data-i18n="map_1_name">الجزيرة المحروقة (Burnt Island)</h3>
+            <p class="map-desc" data-i18n="map_1_desc">
+              أكبر ساحة معركة تضم غابات شاسعة ومجمعات سكنية وقاعدة طيران عسكرية. مثالية للكمائن والمواجهات التكتيكية
+              طويلة المدى.
+            </p>
+            <div class="map-features">
+              <span><i class="fa-solid fa-mountain-sun"></i> تضاريس متنوعة</span>
+              <span><i class="fa-solid fa-car"></i> وفرة المركبات</span>
+              <span><i class="fa-solid fa-gem"></i> لوت عالي المستوى</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map 2 -->
+        <div class="map-card">
+          <div class="map-img-box">
+            <img src="assets/characters.jpg" alt="خريطة المنطقة الصناعية" loading="lazy">
+            <div class="map-tag">4x4 KM • قتال سريع</div>
+          </div>
+          <div class="map-details">
+            <h3 class="map-name" data-i18n="map_2_name">واحة المعركة والمصانع (Cyber Outpost)</h3>
+            <p class="map-desc" data-i18n="map_2_desc">
+              خريطة حماسية صغيرة وسريعة مستوحاة من أسلوب فري فاير للنزال السريع بدون توقف مع وتيرة حماسية تقلل وقت
+              الانتظار.
+            </p>
+            <div class="map-features">
+              <span><i class="fa-solid fa-bolt"></i> جولات سريعة 10 دقائق</span>
+              <span><i class="fa-solid fa-shield-halved"></i> اشتباكات قريبة</span>
+              <span><i class="fa-solid fa-skull-crossbones"></i> مواجهات مكثفة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Hub (The Core Conversion Section) -->
+  <section class="section download-section" id="download">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag pulse-tag" data-i18n="dl_tag">🚀 مركز التحميل المباشر</div>
+        <h2 class="section-title" data-i18n="dl_title">حمّل <span class="text-gradient">شوتر العروسي</span> لجهازك الآن
+        </h2>
+        <p class="section-desc" data-i18n="dl_desc">
+          اختر نسختك المفضلة؛ نسخة الأندرويد للهواتف الذكية أو نسخة الكمبيوتر الأصلية (Native Windows) بروابط مباشرة
+          وسريعة مجاناً 100%.
+        </p>
+      </div>
+
+      <!-- Main Download Dual Cards -->
+      <div class="download-cards-container">
+
+        <!-- ================= ANDROID CARD ================= -->
+        <div class="main-dl-card android-theme" id="download-android">
+          <div class="dl-card-badge">
+            <i class="fa-brands fa-android"></i>
+            <span>ANDROID APK</span>
+          </div>
+
+          <div class="dl-header">
+            <div class="dl-platform-icon">
+              <i class="fa-brands fa-android"></i>
+            </div>
+            <div class="dl-titles">
+              <h3 class="platform-heading" data-i18n="dl_android_head">نسخة الأندرويد الرسمية</h3>
+              <p class="platform-subheading">Shooter Aroussi Mobile Edition • ملف APK مباشر</p>
+            </div>
+          </div>
+
+          <!-- Specs List -->
+          <div class="dl-specs-box">
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-file"></i> اسم الملف:</span>
+              <span class="spec-value code-font">shooter aroussi.apk</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-weight-scale"></i> حجم الملف:</span>
+              <span class="spec-value highlight">547 ميغابايت (MB)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-code-branch"></i> الإصدار:</span>
+              <span class="spec-value">v1.0.0 (أحدث إصدار كامل)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-mobile-screen"></i> التوافق:</span>
+              <span class="spec-value">Android 7.0 أو أحدث (هواتف & تابلت)</span>
+            </div>
+          </div>
+
+          <!-- MediaFire Direct Download (only) -->
+          <div class="dl-buttons-group">
+            <a href="https://gofile.io/d/cKBwJVhE" class="btn btn-download-primary btn-android" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-cloud-arrow-down fa-bounce"></i>
+              <div class="btn-text-wrap">
+                <span class="btn-top" data-i18n="btn_dl_now">تحميل من DRIVE</span>
+                <span class="btn-bottom">DRIVE  Direct APK (547 MB)</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Installation Guide Accordion -->
+          <details class="install-guide">
+            <summary><i class="fa-solid fa-circle-question"></i> <span data-i18n="guide_android_title">طريقة تثبيت
+                اللعبة على هاتف الأندرويد؟</span></summary>
+            <ol class="guide-steps">
+              <li>اضغط على زر <strong>تحميل مباشر</strong> وانتظر اكتمال تنزيل ملف <code>shooter aroussi.apk</code>.
+              </li>
+              <li>افتح ملف التحميلات على هاتفك واضغط على الملف.</li>
+              <li>إذا ظهرت رسالة أمان، فعّل خيار <em>"السماح بتثبيت التطبيقات من هذا المصدر"</em>.</li>
+              <li>اضغط <strong>تثبيت (Install)</strong>، ثم افتح اللعبة واستمتع بالقتال فوراً!</li>
+            </ol>
+          </details>
+        </div>
+
+
+        <!-- ================= PC WINDOWS CARD ================= -->
+        <div class="main-dl-card pc-theme" id="download-pc">
+          <div class="dl-card-badge">
+            <i class="fa-brands fa-windows"></i>
+            <span>PC WINDOWS</span>
+          </div>
+
+          <div class="dl-header">
+            <div class="dl-platform-icon">
+              <i class="fa-brands fa-windows"></i>
+            </div>
+            <div class="dl-titles">
+              <h3 class="platform-heading" data-i18n="dl_pc_head">نسخة الكمبيوتر الرسمية</h3>
+              <p class="platform-subheading">Shooter Aroussi PC Native • بدون أي محاكي</p>
+            </div>
+          </div>
+
+          <!-- Specs List -->
+          <div class="dl-specs-box">
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-file-zipper"></i> اسم الملف:</span>
+              <span class="spec-value code-font">shooter_aroussi_pc.zip</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-weight-scale"></i> حجم الملف:</span>
+              <span class="spec-value highlight">"356" ميغابايت (مضغوط)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-gamepad"></i> المشغل:</span>
+              <span class="spec-value">Native Unity Engine (Direct .exe)</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-title"><i class="fa-solid fa-display"></i> التوافق:</span>
+              <span class="spec-value">Windows 10 / 11 / 7 (64-bit)</span>
+            </div>
+          </div>
+
+          <!-- MediaFire Direct Download (only) -->
+          <div class="dl-buttons-group">
+            <a href="https://gofile.io/d/Q5Xq1QxD" class="btn btn-download-primary btn-pc" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-cloud-arrow-down fa-bounce"></i>
+              <div class="btn-text-wrap">
+                <span class="btn-top" data-i18n="btn_dl_now_pc">تحميل من DRIVE</span>
+                <span class="btn-bottom">DRIVE Direct ZIP (356 MB)</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Installation Guide Accordion -->
+          <details class="install-guide">
+            <summary><i class="fa-solid fa-circle-question"></i> <span data-i18n="guide_pc_title">طريقة تشغيل اللعبة على
+                الكمبيوتر؟</span></summary>
+            <ol class="guide-steps">
+              <li>حمّل ملف <code>shooter_aroussi_pc.zip</code> بالضغط على الزر أعلاه.</li>
+              <li>انقر بزر الماوس الأيمن على الملف واختر <strong>استخراج الكل (Extract All)</strong>.</li>
+              <li>ادخل إلى المجلد المستخرج واضغط مرتين على <code>shooter aroussi.exe</code>.</li>
+              <li>ستعمل اللعبة فوراً بدقة عالية وبدون الحاجة لتثبيت أي برامج محاكاة إضافية!</li>
+            </ol>
+          </details>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements Section -->
+  <section class="section specs-section" id="requirements">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="specs_tag">المواصفات التقنية</div>
+        <h2 class="section-title" data-i18n="specs_title">متطلبات تشغيل <span class="text-gradient">اللعبة</span></h2>
+        <p class="section-desc" data-i18n="specs_desc">
+          تم تحسين شوتر العروسي لتعمل بأفضل أداء على كافة الأجهزة المتوسطة والحديثة.
+        </p>
+      </div>
+
+      <div class="specs-grid">
+        <!-- PC Requirements -->
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <i class="fa-brands fa-windows"></i>
+            <div>
+              <h3>متطلبات الكمبيوتر (PC)</h3>
+              <span>Windows 64-bit Edition</span>
+            </div>
+          </div>
+          <div class="spec-table">
+            <div class="spec-table-row header-row">
+              <div>المكوّن</div>
+              <div>الحد الأدنى</div>
+              <div>الموصى به (لأداء 60+ FPS)</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-microchip"></i> المعالج</div>
+              <div>Intel Core i3 / AMD Ryzen 3</div>
+              <div>Intel Core i5 / AMD Ryzen 5</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</div>
+              <div>4 جيجابايت</div>
+              <div>8 جيجابايت فما فوق</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-vr-cardboard"></i> كرت الشاشة</div>
+              <div>Intel HD Graphics 4000</div>
+              <div>NVIDIA GTX 1050 / AMD RX 560</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-hard-drive"></i> المساحة الحرة</div>
+              <div>1 جيجابايت مساحة فارغة</div>
+              <div>2 جيجابايت SSD فائق السرعة</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Android Requirements -->
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <i class="fa-brands fa-android"></i>
+            <div>
+              <h3>متطلبات الأندرويد (Android)</h3>
+              <span>Smartphone & Tablet</span>
+            </div>
+          </div>
+          <div class="spec-table">
+            <div class="spec-table-row header-row">
+              <div>المكوّن</div>
+              <div>الحد الأدنى</div>
+              <div>الموصى به (للرسوميات العالية)</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-microchip"></i> المعالج</div>
+              <div>رباعي النواة 1.8 GHz</div>
+              <div>ثماني النواة Snapdragon / Helio G</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-memory"></i> الذاكرة (RAM)</div>
+              <div>3 جيجابايت رام</div>
+              <div>4 إلى 6 جيجابايت رام</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-cube"></i> نظام التشغيل</div>
+              <div>Android 7.0 (Nougat)</div>
+              <div>Android 10 فما فوق</div>
+            </div>
+            <div class="spec-table-row">
+              <div><i class="fa-solid fa-hard-drive"></i> مساحة التخزين</div>
+              <div>500 ميغابايت فارغة</div>
+              <div>1 جيجابايت لتحميل التحديثات</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section" id="faq">
+    <div class="container faq-container">
+      <div class="section-header text-center">
+        <div class="section-tag" data-i18n="faq_tag">الأسئلة الأكثر شيوعاً</div>
+        <h2 class="section-title" data-i18n="faq_title">كل ما تريد معرفته عن <span class="text-gradient">شوتر
+            العروسي</span></h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary class="faq-question">
+            <span>هل اللعبة مجانية بالكامل؟</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>نعم، اللعبة مجانية 100% سواء لنسخة الأندرويد APK أو نسخة الكمبيوتر PC، وبدون أي قيود أو اشتراكات شهرية
+              مدفوعة.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>هل تحتاج نسخة الكمبيوتر إلى محاكي مثل Gameloop أو BlueStacks؟</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>كلا على الإطلاق! تم بناء وبرمجة نسخة الكمبيوتر كبرنامج Native Windows أصلي (.exe) يعمل مباشرة على جهازك
+              بسرعة فائقة وتحكم ماوس ولوحة مفاتيح فوري بدون أي بطء محاكاة.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>هل تتوفر أسلحة ودروع الإسقاط الجوي (Airdrop) مثل فري فاير وببجي؟</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>نعم، تحتوي اللعبة على نظام دروب جوي ينزل عشوائياً بدخان أحمر مميز يحتوي على أقوى الأسلحة مثل AWM وGroza
+              وخوذة ودروع المستوى 3.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>كيف يمكنني تثبيت التحديثات القادمة؟</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>يمكنك دائماً زيارة هذا الموقع الرسمي لتحميل أحدث إصدار وتثبيته فوق النسخة السابقة للاحتفاظ بإعداداتك
+              واللعب بأحدث المزايا.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="logo-icon-wrap">
+            <i class="fa-solid fa-crosshairs target-icon"></i>
+            <i class="fa-solid fa-fire flame-icon"></i>
+          </div>
+          <div class="logo-text">
+            <span class="logo-title">SHOOTER <span class="highlight">AROUSSI</span></span>
+            <span class="logo-sub">شوتر العروسي • BATTLE ROYALE</span>
+          </div>
+        </div>
+        <p class="footer-desc" data-i18n="footer_desc">
+          أقوى لعبة باتل رويال حماسية وتكتيكية تجمع بين متعة فري فاير وواقعية ببجي موبايل. اهبط، قاتل، وابقَ على قيد
+          الحياة.
+        </p>
+        <div class="footer-socials">
+          <a href="#" class="social-link" title="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="social-link" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="social-link" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links-group">
+        <h4 class="footer-title" data-i18n="footer_quick_links">روابط سريعة</h4>
+        <ul>
+          <li><a href="#hero">الرئيسية</a></li>
+          <li><a href="#features">المميزات</a></li>
+          <li><a href="#weapons">الأسلحة والعتاد</a></li>
+          <li><a href="#maps">خرائط القتال</a></li>
+          <li><a href="#download">روابط التحميل</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h4 class="footer-title" data-i18n="footer_download_links">التحميل المباشر</h4>
+        <ul>
+          <li><a href="#download-android"><i class="fa-brands fa-android"></i> نسخة أندرويد (APK)</a></li>
+          <li><a href="#download-pc"><i class="fa-brands fa-windows"></i> نسخة كمبيوتر (ZIP)</a></li>
+          <li><a href="#requirements"><i class="fa-solid fa-microchip"></i> متطلبات النظام</a></li>
+          <li><a href="#faq"><i class="fa-solid fa-circle-question"></i> الأسئلة المتكررة</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2026 شوتر العروسي (Shooter Aroussi) - جميع الحقوق محفوظة • تجربة باتل رويال مستقلة مستوحاة من عوالم Free
+          Fire و PUBG.</p>
+        <div class="footer-legal">
+          <a href="#">سياسة الخصوصية</a>
+          <span>•</span>
+          <a href="#">شروط الاستخدام</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= DOWNLOAD MODAL ================= -->
+  <div class="modal-overlay" id="download-modal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeDownloadModal()" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-icon-badge" id="modal-platform-icon">
+          <i class="fa-brands fa-android"></i>
+        </div>
+        <h3 class="modal-title" id="modal-title">بدء تحميل شوتر العروسي</h3>
+        <p class="modal-subtitle" id="modal-subtitle">جاري تجهيز سيرفر التحميل السريع...</p>
+      </div>
+
+      <div class="modal-progress-wrap">
+        <div class="modal-progress-bar">
+          <div class="modal-progress-fill" id="modal-progress-fill"></div>
+        </div>
+        <div class="progress-info">
+          <span id="modal-status-text">جاري الاتصال بالسيرفر السحابي...</span>
+          <span id="modal-percent-text">0%</span>
+        </div>
+      </div>
+
+      <div class="modal-actions-box">
+        <a href="#" class="btn btn-primary btn-block btn-glow" id="modal-direct-btn">
+          <i class="fa-solid fa-download"></i> اضغط هنا إذا لم يبدأ التحميل تلقائياً
+        </a>
+        <div class="alternative-mirrors">
+          <span class="alt-label">سيتم تحويلك لروابط DRIVE لتحميل اللعبة:</span>
+        </div>
+      </div>
+
+      <div class="modal-security-badge">
+        <i class="fa-solid fa-shield-check"></i>
+        <span>ملف تم فحصه وخالٍ من الفيروسات والبرمجيات الضارة 100%</span>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- QRCode.js Library from CDN for direct mobile scan -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Main Application Logic -->
+  <script src="app.js"></script>
+</body>
+
+</html>
