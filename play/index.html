@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Aroussi Shooter - Play in browser</title>
+<link rel="shortcut icon" href="TemplateData/favicon.ico">
+<style>
+html,body{margin:0;height:100%;background:#0b0d12;color:#e9edf5;font-family:system-ui,Segoe UI,Tahoma,sans-serif;overflow:hidden}
+#c{width:100%;height:100%;display:block;background:#000}
+#ui{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#0b0d12;text-align:center;padding:16px}
+h1{margin:0;font-size:28px;letter-spacing:1px}
+#bar{width:min(480px,90vw);height:14px;border-radius:7px;background:#232836;overflow:hidden}
+#fill{height:100%;width:0;background:linear-gradient(90deg,#ff7a18,#ffb347);transition:width .2s}
+#msg{font-size:15px;opacity:.85;min-height:20px}
+.small{font-size:13px;opacity:.6;max-width:520px}
+#fs{position:fixed;right:12px;bottom:12px;padding:8px 14px;border:0;border-radius:8px;background:#ff7a18;color:#111;font-weight:700;cursor:pointer;display:none}
+#ad{position:fixed;inset:0;background:#000;display:none;z-index:10}
+#ad video{width:100%;height:100%;object-fit:contain;background:#000}
+#start{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#0b0d12;cursor:pointer}
+#start b{font-size:30px}
+#start span{padding:14px 34px;border-radius:12px;background:#ff7a18;color:#111;font-weight:800;font-size:22px}
+#skip{position:absolute;top:16px;right:16px;padding:10px 18px;border:0;border-radius:8px;background:rgba(0,0,0,.55);color:#fff;font-weight:700;font-size:16px;cursor:default}
+#skip.on{background:rgba(0,0,0,.8);cursor:pointer}
+#adbar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.15)}
+#adbar div{height:100%;width:0;background:#ff7a18}
+</style>
+</head>
+<body>
+<canvas id="c" tabindex="-1"></canvas>
+<div id="ui">
+  <h1>AROUSSI SHOOTER</h1>
+  <div id="bar"><div id="fill"></div></div>
+  <div id="msg">...</div>
+  <div class="small">اللعبة كبيرة (حوالي 580 MB) — التحميل يأخذ بعض الوقت أول مرة. يُفضّل كمبيوتر و Chrome أو Edge.<br>The game is big: the first load takes a while. Best on a computer with Chrome or Edge.</div>
+</div>
+<div id="ad">
+  <video id="vid" playsinline preload="auto"></video>
+  <button id="skip">CLOSE IN 35</button>
+  <div id="adbar"><div id="adfill"></div></div>
+  <div id="start"><b>AROUSSI SHOOTER</b><span>▶ PLAY / العب</span></div>
+</div>
+<button id="fs">⛶ Full screen</button>
+<script src="Build/game.loader.js"></script>
+<script>
+(async function(){
+  const PARTS=30, TOTAL=608725840, VIDEO='', SKIP_AFTER=35;
+  const fill=document.getElementById('fill'), msg=document.getElementById('msg');
+  const mb=n=>(n/1048576).toFixed(0);
+
+  // 1) the intro video (pub) plays first, while the game downloads behind it
+  let adDone=Promise.resolve();
+  if(VIDEO){
+    const ad=document.getElementById('ad'), v=document.getElementById('vid'), skip=document.getElementById('skip'),
+          start=document.getElementById('start'), adfill=document.getElementById('adfill');
+    ad.style.display='block'; v.src=VIDEO;
+    adDone=new Promise(res=>{
+      let over=false; const end=()=>{ if(over) return; over=true; v.pause(); ad.style.display='none'; res(); };
+      start.onclick=()=>{ start.style.display='none'; v.play().catch(()=>{ v.muted=true; v.play().catch(end); }); };
+      v.onended=end; v.onerror=end;
+      v.ontimeupdate=()=>{
+        const t=v.currentTime, left=Math.ceil(SKIP_AFTER-t);
+        if(v.duration) adfill.style.width=(t/v.duration*100)+'%';
+        if(left>0){ skip.textContent='CLOSE IN '+left; skip.classList.remove('on'); }
+        else { skip.textContent='✕  CLOSE'; skip.classList.add('on'); }
+      };
+      skip.onclick=()=>{ if(v.currentTime>=SKIP_AFTER) end(); };
+      document.addEventListener('keydown',e=>{ if((e.key==='Escape'||e.key===' ')&&v.currentTime>=SKIP_AFTER) end(); });
+    });
+  }
+
+  // 2) the game pieces download
+  let got=0; const chunks=new Array(PARTS);
+  async function load(i){
+    for(let t=0;t<4;t++){
+      try{
+        const r=await fetch('Build/game.data.part'+i);
+        if(!r.ok) throw new Error(r.status);
+        const rd=r.body.getReader(); const list=[];
+        for(;;){const {done,value}=await rd.read(); if(done)break; list.push(value); got+=value.length;
+          fill.style.width=(got/TOTAL*90).toFixed(1)+'%'; msg.textContent='تحميل اللعبة / Loading '+mb(got)+' / '+mb(TOTAL)+' MB';}
+        chunks[i]=new Blob(list); return;
+      }catch(e){ if(t==3) throw e; await new Promise(r=>setTimeout(r,1500)); }
+    }
+  }
+  const download=(async()=>{
+    let next=0; const work=[];
+    for(let w=0;w<3;w++) work.push((async()=>{ while(next<PARTS){ const i=next++; await load(i);} })());
+    await Promise.all(work);
+  })();
+  try{ await download; }catch(e){ await adDone; msg.textContent='خطأ في التحميل، أعد تحميل الصفحة / Download error, reload the page'; return; }
+  await adDone;   // the game starts after the video
+
+  // 3) the game
+  const dataUrl=URL.createObjectURL(new Blob(chunks));
+  msg.textContent='تشغيل اللعبة... / Starting...';
+  createUnityInstance(document.getElementById('c'),{
+    dataUrl:dataUrl, frameworkUrl:'Build/game.framework.js.unityweb', codeUrl:'Build/game.wasm.unityweb',
+    streamingAssetsUrl:'StreamingAssets', companyName:'Aroussi', productName:'Aroussi Shooter', productVersion:'0.1',
+    cacheControl:function(){return 'no-store';}
+  },p=>{fill.style.width=(90+p*10).toFixed(1)+'%';}).then(u=>{
+    document.getElementById('ui').style.display='none';
+    const fs=document.getElementById('fs'); fs.style.display='block'; fs.onclick=()=>u.SetFullscreen(1);
+  }).catch(e=>{ msg.textContent='المتصفح لم يستطع تشغيل اللعبة: '+e; });
+})();
+</script>
+</body>
+</html>
