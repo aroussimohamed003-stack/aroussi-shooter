@@ -57,9 +57,12 @@ h1{margin:0;font-size:28px;letter-spacing:1px}
 </div>
 <script>
 (async function(){
-  // phones: the browser game is too big for them -> offer the Android version first
+  // phones go to the light version made for them (m/); ?pc keeps this one
   const phone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&Math.min(screen.width,screen.height)<820);
-  if(phone){
+  if(phone&&!location.search.includes('pc')){
+    // the light phone version, as soon as it is on the site; until then the Android notice
+    const ok=await fetch('m/index.html',{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false);
+    if(ok){ location.replace('m/'); return; }
     const m=document.getElementById('mob'); m.style.display='flex';
     await new Promise(r=>document.getElementById('mobtry').onclick=()=>{m.style.display='none';r();});
   }
