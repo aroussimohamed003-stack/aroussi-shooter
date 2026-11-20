@@ -24,12 +24,6 @@ h1{margin:0;font-size:28px;letter-spacing:1px}
 #skip.on{background:rgba(0,0,0,.8);cursor:pointer}
 #adbar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.15)}
 #adbar div{height:100%;width:0;background:#ff7a18}
-#mob{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#0b0d12;text-align:center;padding:24px}
-#mob h2{margin:0;font-size:24px}
-#mob p{margin:0;font-size:16px;line-height:1.6;opacity:.85;max-width:460px}
-#mob a,#mob button{box-sizing:border-box;display:block;width:min(320px,85vw);padding:14px;border-radius:12px;font-weight:800;font-size:18px;text-decoration:none;border:0;cursor:pointer}
-#mob a{background:#3ddc84;color:#0b0d12}
-#mob button{background:#232836;color:#e9edf5}
 </style>
 </head>
 <body>
@@ -38,7 +32,7 @@ h1{margin:0;font-size:28px;letter-spacing:1px}
   <h1>AROUSSI SHOOTER</h1>
   <div id="bar"><div id="fill"></div></div>
   <div id="msg">...</div>
-  <div class="small">اللعبة كبيرة (حوالي 580 MB) — التحميل يأخذ بعض الوقت أول مرة. يُفضّل كمبيوتر و Chrome أو Edge.<br>The game is big: the first load takes a while. Best on a computer with Chrome or Edge.</div>
+  <div class="small">اللعبة كبيرة (حوالي 570 MB) — التحميل يأخذ بعض الوقت أول مرة. يُفضّل كمبيوتر و Chrome أو Edge.<br>The game is big: the first load takes a while. Best on a computer with Chrome or Edge.</div>
 </div>
 <div id="ad">
   <video id="vid" playsinline preload="auto"></video>
@@ -48,25 +42,12 @@ h1{margin:0;font-size:28px;letter-spacing:1px}
 </div>
 <button id="fs">⛶ Full screen</button>
 <script src="Build/game.loader.js"></script>
-<div id="mob">
-  <h2>AROUSSI SHOOTER</h2>
-  <p>نسخة المتصفح كبيرة جداً (حوالي 580 MB) ولا تعمل على أغلب الهواتف. حمّل نسخة الأندرويد، فهي أسرع وأفضل على الهاتف.<br><span style="font-size:14px;opacity:.7">The browser version is too big for most phones. Get the Android version instead.</span></p>
-  <a href="https://gofile.io/d/3H0ybpUe">⬇ تحميل للأندرويد / Android APK</a>
-  <a href="../" style="background:#ff7a18">الموقع / Website</a>
-  <button id="mobtry">جرّب على المتصفح رغم ذلك / Try anyway</button>
-</div>
 <script>
 (async function(){
-  // phones go to the light version made for them (m/); ?pc keeps this one
-  const phone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&Math.min(screen.width,screen.height)<820);
-  if(phone&&!location.search.includes('pc')){
-    // the light phone version, as soon as it is on the site; until then the Android notice
-    const ok=await fetch('m/index.html',{method:'HEAD',cache:'no-store'}).then(r=>r.ok).catch(()=>false);
-    if(ok){ location.replace('m/'); return; }
-    const m=document.getElementById('mob'); m.style.display='flex';
-    await new Promise(r=>document.getElementById('mobtry').onclick=()=>{m.style.display='none';r();});
-  }
-  const PARTS=30, TOTAL=608725840, VIDEO='pub.mp4', SKIP_AFTER=35;
+  const PARTS=29, TOTAL=598173121, VIDEO='pub.mp4', SKIP_AFTER=35, PHONE_PAGE=0;
+  // phones go to the light phone version (m/)
+  const isPhone=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&Math.min(screen.width,screen.height)<820);
+  if(isPhone&&!PHONE_PAGE&&!location.search.includes('pc')){ location.replace('m/'); return; }
   const fill=document.getElementById('fill'), msg=document.getElementById('msg');
   const mb=n=>(n/1048576).toFixed(0);
 
